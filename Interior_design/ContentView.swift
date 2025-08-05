@@ -9,27 +9,19 @@ import SwiftUI
 import ARKit
 import RealityKit
 
-// MARK: - Main Content View
-// Main UI containing AR view and control overlays
 struct ContentView: View {
     
-    // MARK: - State Management
     @StateObject private var viewModel = ARViewModel()
     
     var body: some View {
         ZStack {
-            // MARK: - AR View Background
-            // Full-screen AR view for room scanning and furniture placement
             ARViewContainer(viewModel: viewModel, isPlacementMode: $viewModel.isPlacementMode)
                 .edgesIgnoringSafeArea(.all)
             
-            // MARK: - Control Overlay
             VStack {
                 Spacer()
                 
-                // MARK: - Bottom Control Panel
                 HStack {
-                    // MARK: - Model Selection Button
                     Button(action: {
                         viewModel.toggleModelPicker()
                     }) {
@@ -45,7 +37,6 @@ struct ContentView: View {
                     
                     Spacer()
                     
-                    // MARK: - Remove All Button
                     Button(action: {
                         viewModel.removeAllModels()
                     }) {
@@ -63,7 +54,6 @@ struct ContentView: View {
                 .padding(.bottom, 30)
             }
             
-            // MARK: - Model Picker Sheet
             if viewModel.showModelPicker {
                 VStack {
                     Spacer()
@@ -108,7 +98,6 @@ struct ContentView: View {
                 }
             }
             
-            // MARK: - Placement Mode Indicator
             if viewModel.isPlacementMode {
                 VStack {
                     Text("Tap to place \(viewModel.selectedModelName)")
@@ -123,8 +112,6 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            // MARK: - App Initialization
-            // Request camera permissions and initialize AR
             ARSession.shared.requestCameraPermission { granted in
                 if !granted {
                     print("Camera permission denied")
