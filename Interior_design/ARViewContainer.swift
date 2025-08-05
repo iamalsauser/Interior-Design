@@ -104,9 +104,9 @@ struct ARViewContainer: UIViewRepresentable {
             let scaleFactor: Float = modelName == "chair" ? 0.8 : 1.0
             modelEntity.scale = SIMD3<Float>(scaleFactor, scaleFactor, scaleFactor)
             
-            let anchorEntity = AnchorEntity(anchor: anchor)
-            anchorEntity.addChild(modelEntity)
-            arView.scene.addAnchor(anchorEntity)
+            let anchorEntity = AnchorEntity(world: transform)
+                anchorEntity.addChild(modelEntity)
+                arView.scene.addAnchor(anchorEntity)
             
             let position = SIMD3<Float>(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
             viewModel.placeModel(at: position, with: anchor)

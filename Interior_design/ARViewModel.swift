@@ -8,6 +8,7 @@
 import SwiftUI
 import Combine
 import RealityKit
+import ARKit
 
 class ARViewModel: ObservableObject {
     
