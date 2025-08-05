@@ -9,6 +9,7 @@
 import SwiftUI
 import ARKit
 import RealityKit
+import AVFoundation
 
 struct ContentView: View {
     @StateObject private var viewModel = ARViewModel()
@@ -44,11 +45,25 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            ARSession.shared.requestCameraPermission { granted in
+            requestCameraPermission()
+        }
+    }
+    
+    private func requestCameraPermission() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            // Camera access already granted
+            break
+        case .notDetermined:
+            AVCaptureDevice.requestAccess(for: .video) { granted in
                 if !granted {
                     print("Camera permission denied")
                 }
             }
+        case .denied, .restricted:
+            print("Camera access denied or restricted")
+        @unknown default:
+            break
         }
     }
 }
