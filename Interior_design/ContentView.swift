@@ -26,13 +26,23 @@ struct ContentView: View {
                         viewModel.toggleModelPicker()
                     }) {
                         HStack {
-                            Image(systemName: "cube.box")
+                            Image(systemName: "cube.box.fill")
+                                .font(.system(size: 16, weight: .semibold))
                             Text(viewModel.selectedModelName.capitalized)
+                                .font(.system(size: 16, weight: .medium))
                         }
-                        .padding()
-                        .background(Color.black.opacity(0.7))
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.blue.opacity(0.8), Color.purple.opacity(0.8)]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
                         .foregroundColor(.white)
-                        .cornerRadius(10)
+                        .cornerRadius(25)
+                        .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 2)
                     }
                     
                     Spacer()
@@ -41,13 +51,23 @@ struct ContentView: View {
                         viewModel.removeAllModels()
                     }) {
                         HStack {
-                            Image(systemName: "trash")
+                            Image(systemName: "trash.fill")
+                                .font(.system(size: 16, weight: .semibold))
                             Text("Clear All")
+                                .font(.system(size: 16, weight: .medium))
                         }
-                        .padding()
-                        .background(Color.red.opacity(0.7))
+                        .padding(.horizontal, 16)
+                        .padding(.vertical, 12)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color.red.opacity(0.8), Color.orange.opacity(0.8)]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
                         .foregroundColor(.white)
-                        .cornerRadius(10)
+                        .cornerRadius(25)
+                        .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 2)
                     }
                 }
                 .padding(.horizontal, 20)
