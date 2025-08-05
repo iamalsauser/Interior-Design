@@ -15,6 +15,8 @@ class ARViewModel: ObservableObject {
     @Published var isPlacementMode: Bool = false
     @Published var placedModels: [ARModel] = []
     @Published var showModelPicker: Bool = false
+    @Published var totalModelsPlaced: Int = 0
+    @Published var showStats: Bool = false
     
     let availableModels = ["chair", "table"]
     
@@ -31,6 +33,7 @@ class ARViewModel: ObservableObject {
             anchor: anchor
         )
         placedModels.append(newModel)
+        totalModelsPlaced += 1
         isPlacementMode = false
     }
     
@@ -50,6 +53,18 @@ class ARViewModel: ObservableObject {
     
     func cancelPlacement() {
         isPlacementMode = false
+    }
+    
+    func toggleStats() {
+        showStats.toggle()
+    }
+    
+    func getModelCount(for modelName: String) -> Int {
+        return placedModels.filter { $0.name == modelName }.count
+    }
+    
+    func resetStats() {
+        totalModelsPlaced = 0
     }
 }
 
