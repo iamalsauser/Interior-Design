@@ -64,9 +64,17 @@ struct ARViewContainer: UIViewRepresentable {
             
             let location = gesture.location(in: arView)
             
+            // Light haptic feedback on tap
+            let selectionFeedback = UISelectionFeedbackGenerator()
+            selectionFeedback.selectionChanged()
+            
             guard let raycastQuery = arView.makeRaycastQuery(from: location, allowing: .estimatedPlane, alignment: .any),
                   let raycastResult = arView.session.raycast(raycastQuery).first else {
                 print("No surface detected at tap location")
+                
+                // Error haptic feedback
+                let feedbackGenerator = UINotificationFeedbackGenerator()
+                feedbackGenerator.notificationOccurred(.warning)
                 return
             }
             
@@ -79,18 +87,33 @@ struct ARViewContainer: UIViewRepresentable {
             guard let modelURL = Bundle.main.url(forResource: modelName, withExtension: "usdz"),
                   let modelEntity = try? ModelEntity.load(contentsOf: modelURL) else {
                 print("Failed to load model: \(modelName)")
+                
+                // Haptic feedback for failure
+                let feedbackGenerator = UINotificationFeedbackGenerator()
+                feedbackGenerator.notificationOccurred(.error)
                 return
             }
             
             let anchor = ARAnchor(name: "furniture_\(UUID())", transform: transform)
             arView.session.add(anchor: anchor)
             
+            // Add physics and collision detection
             modelEntity.generateCollisionShapes(recursive: true)
-            arView.scene.addAnchor(AnchorEntity(anchor: anchor))
-            anchor.addChild(modelEntity)
+            
+            // Scale model appropriately
+            let scaleFactor: Float = modelName == "chair" ? 0.8 : 1.0
+            modelEntity.scale = SIMD3<Float>(scaleFactor, scaleFactor, scaleFactor)
+            
+            let anchorEntity = AnchorEntity(anchor: anchor)
+            anchorEntity.addChild(modelEntity)
+            arView.scene.addAnchor(anchorEntity)
             
             let position = SIMD3<Float>(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
             viewModel.placeModel(at: position, with: anchor)
+            
+            // Success haptic feedback
+            let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+            feedbackGenerator.impactOccurred()
             
             print("Placed \(modelName) at position: \(position)")
         }
