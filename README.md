@@ -1,3 +1,6 @@
+# github: https://github.com/iamalsauser  
+# linkedln: https://www.linkedin.com/in/parth-sinh-045b8324b/
+
 # Interior Design AR App
 
 A SwiftUI macOS/iOS app that uses ARKit and RealityKit to scan rooms and place 3D furniture models on detected surfaces.
