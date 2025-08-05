@@ -12,6 +12,22 @@ struct Interior_designApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .preferredColorScheme(.dark) // Force dark mode for better AR experience
+                .onAppear {
+                    setupAppearance()
+                }
         }
+    }
+    
+    private func setupAppearance() {
+        // Customize navigation bar appearance
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+        appearance.backgroundColor = UIColor.clear
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        
+        // Set status bar style
+        UIApplication.shared.setStatusBarStyle(.lightContent, animated: false)
     }
 }
