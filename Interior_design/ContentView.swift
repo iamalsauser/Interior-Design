@@ -19,6 +19,24 @@ struct ContentView: View {
             ARViewContainer(viewModel: viewModel, isPlacementMode: $viewModel.isPlacementMode)
                 .edgesIgnoringSafeArea(.all)
             
+            // Simulator warning overlay
+            #if targetEnvironment(simulator)
+            VStack {
+                Text("🔍 iOS Simulator Mode")
+                    .font(.headline)
+                    .foregroundColor(.white)
+                Text("AR features are limited. Use a physical device for full experience.")
+                    .font(.caption)
+                    .foregroundColor(.white.opacity(0.8))
+                    .multilineTextAlignment(.center)
+            }
+            .padding()
+            .background(Color.orange.opacity(0.8))
+            .cornerRadius(10)
+            .padding(.top, 50)
+            .frame(maxHeight: .infinity, alignment: .top)
+            #endif
+            
             VStack {
                 Spacer()
                 
@@ -50,6 +68,10 @@ struct ContentView: View {
     }
     
     private func requestCameraPermission() {
+        #if targetEnvironment(simulator)
+        print("Simulator mode: Skipping camera permission request")
+        return
+        #else
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
             // Camera access already granted
@@ -65,6 +87,7 @@ struct ContentView: View {
         @unknown default:
             break
         }
+        #endif
     }
 }
 

@@ -4,6 +4,7 @@
 //
 //  Created by Parth Sinh on 04/08/25.
 //  Enhanced with robust error handling, haptic feedback, and improved AR session management
+//  Added simulator support and device detection
 
 import SwiftUI
 import ARKit
@@ -17,6 +18,18 @@ struct ARViewContainer: UIViewRepresentable {
     
     func makeUIView(context: Context) -> ARView {
         let arView = ARView(frame: .zero, cameraMode: .ar, automaticallyConfigureSession: false)
+        
+        // Check if running on simulator or if AR is supported
+        #if targetEnvironment(simulator)
+        // Running on simulator - don't start AR session
+        print("Running on iOS Simulator - AR features disabled")
+        return arView
+        #else
+        // Running on physical device
+        guard ARWorldTrackingConfiguration.isSupported else {
+            print("AR World Tracking not supported on this device")
+            return arView
+        }
         
         let configuration = ARWorldTrackingConfiguration()
         configuration.planeDetection = [.horizontal, .vertical]
@@ -37,6 +50,7 @@ struct ARViewContainer: UIViewRepresentable {
         context.coordinator.viewModel = viewModel
         
         return arView
+        #endif
     }
     
     func updateUIView(_ uiView: ARView, context: Context) {
@@ -68,6 +82,18 @@ struct ARViewContainer: UIViewRepresentable {
             let selectionFeedback = UISelectionFeedbackGenerator()
             selectionFeedback.selectionChanged()
             
+            #if targetEnvironment(simulator)
+            // Simulator mode - simulate furniture placement
+            print("Simulator mode: Simulating furniture placement")
+            let simulatedPosition = SIMD3<Float>(0, 0, -1) // 1 meter in front
+            viewModel.placeModel(at: simulatedPosition, with: nil)
+            
+            // Success haptic feedback for simulator
+            let feedbackGenerator = UIImpactFeedbackGenerator(style: .medium)
+            feedbackGenerator.impactOccurred()
+            return
+            #else
+            // Physical device mode - use real AR
             guard let raycastQuery = arView.makeRaycastQuery(from: location, allowing: .estimatedPlane, alignment: .any),
                   let raycastResult = arView.session.raycast(raycastQuery).first else {
                 print("No surface detected at tap location")
@@ -79,6 +105,7 @@ struct ARViewContainer: UIViewRepresentable {
             }
             
             placeFurnitureModel(at: raycastResult.worldTransform, in: arView, viewModel: viewModel)
+            #endif
         }
         
         private func placeFurnitureModel(at transform: simd_float4x4, in arView: ARView, viewModel: ARViewModel) {
