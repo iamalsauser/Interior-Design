@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		FB882DF62E41D39B006148B8 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB882DF52E41D39B006148B8 /* ARKit.framework */; };
-		FB882DF82E41D3A5006148B8 /* RealityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB882DF72E41D3A5006148B8 /* RealityKit.framework */; };
+		FB882E0B2E41D9E0006148B8 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB882DF52E41D39B006148B8 /* ARKit.framework */; };
+		FB882E0C2E41D9E0006148B8 /* ARKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FB882DF52E41D39B006148B8 /* ARKit.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FB882E0E2E41D9E2006148B8 /* RealityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB882DF72E41D3A5006148B8 /* RealityKit.framework */; };
+		FB882E0F2E41D9E2006148B8 /* RealityKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FB882DF72E41D3A5006148B8 /* RealityKit.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +29,21 @@
 			remoteInfo = Interior_design;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		FB882E0D2E41D9E1006148B8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				FB882E0F2E41D9E2006148B8 /* RealityKit.framework in Embed Frameworks */,
+				FB882E0C2E41D9E0006148B8 /* ARKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		FB882DC92E40EC22006148B8 /* Interior_design.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Interior_design.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,8 +76,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB882DF82E41D3A5006148B8 /* RealityKit.framework in Frameworks */,
-				FB882DF62E41D39B006148B8 /* ARKit.framework in Frameworks */,
+				FB882E0E2E41D9E2006148B8 /* RealityKit.framework in Frameworks */,
+				FB882E0B2E41D9E0006148B8 /* ARKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,6 +138,7 @@
 				FB882DC52E40EC22006148B8 /* Sources */,
 				FB882DC62E40EC22006148B8 /* Frameworks */,
 				FB882DC72E40EC22006148B8 /* Resources */,
+				FB882E0D2E41D9E1006148B8 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
