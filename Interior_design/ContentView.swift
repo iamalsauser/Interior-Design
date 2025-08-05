@@ -3,7 +3,7 @@
 //  Interior_design
 //
 //  Created by Parth Sinh on 04/08/25.
-//
+//  Enhanced with modern UI, analytics, and improved user experience
 
 import SwiftUI
 import ARKit

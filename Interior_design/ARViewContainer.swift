@@ -3,7 +3,7 @@
 //  Interior_design
 //
 //  Created by Parth Sinh on 04/08/25.
-//
+//  Enhanced with robust error handling, haptic feedback, and improved AR session management
 
 import SwiftUI
 import ARKit

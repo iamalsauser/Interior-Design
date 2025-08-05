@@ -3,7 +3,7 @@
 //  Interior_design
 //
 //  Created by Parth Sinh on 04/08/25.
-//
+//  Enhanced with analytics tracking and improved state management
 
 import SwiftUI
 import Combine
