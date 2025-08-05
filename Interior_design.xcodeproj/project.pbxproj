@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		FB882DF62E41D39B006148B8 /* ARKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB882DF52E41D39B006148B8 /* ARKit.framework */; };
+		FB882DF82E41D3A5006148B8 /* RealityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB882DF72E41D3A5006148B8 /* RealityKit.framework */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		FB882DD82E40EC35006148B8 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +32,8 @@
 		FB882DC92E40EC22006148B8 /* Interior_design.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Interior_design.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB882DD72E40EC35006148B8 /* Interior_designTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Interior_designTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB882DE12E40EC35006148B8 /* Interior_designUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Interior_designUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB882DF52E41D39B006148B8 /* ARKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ARKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.5.sdk/System/Library/Frameworks/ARKit.framework; sourceTree = DEVELOPER_DIR; };
+		FB882DF72E41D3A5006148B8 /* RealityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealityKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.5.sdk/System/Library/Frameworks/RealityKit.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +59,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB882DF82E41D3A5006148B8 /* RealityKit.framework in Frameworks */,
+				FB882DF62E41D39B006148B8 /* ARKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +87,7 @@
 				FB882DCB2E40EC22006148B8 /* Interior_design */,
 				FB882DDA2E40EC35006148B8 /* Interior_designTests */,
 				FB882DE42E40EC35006148B8 /* Interior_designUITests */,
+				FB882DF42E41D39A006148B8 /* Frameworks */,
 				FB882DCA2E40EC22006148B8 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +100,15 @@
 				FB882DE12E40EC35006148B8 /* Interior_designUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		FB882DF42E41D39A006148B8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FB882DF72E41D3A5006148B8 /* RealityKit.framework */,
+				FB882DF52E41D39B006148B8 /* ARKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
