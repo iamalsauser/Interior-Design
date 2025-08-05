@@ -97,14 +97,55 @@ struct ARViewContainer: UIViewRepresentable {
         
         func session(_ session: ARSession, didFailWithError error: Error) {
             print("AR Session failed: \(error.localizedDescription)")
+            
+            // Handle specific error cases
+            if let arError = error as? ARError {
+                switch arError.code {
+                case .cameraUnauthorized:
+                    print("Camera access denied")
+                case .unsupportedConfiguration:
+                    print("AR configuration not supported")
+                case .sensorUnavailable:
+                    print("AR sensors unavailable")
+                case .sensorFailed:
+                    print("AR sensor failed")
+                default:
+                    print("Other AR error: \(arError.localizedDescription)")
+                }
+            }
         }
         
         func sessionWasInterrupted(_ session: ARSession) {
-            print("AR Session interrupted")
+            print("AR Session interrupted - app backgrounded or incoming call")
         }
         
         func sessionInterruptionEnded(_ session: ARSession) {
-            print("AR Session interruption ended")
+            print("AR Session interruption ended - resuming AR")
+            
+            // Restart the session if needed
+            guard let arView = arView else { return }
+            let configuration = ARWorldTrackingConfiguration()
+            configuration.planeDetection = [.horizontal, .vertical]
+            configuration.environmentTexturing = .automatic
+            configuration.isLightEstimationEnabled = true
+            
+            if ARWorldTrackingConfiguration.supportsFrameSemantics(.sceneDepth) {
+                configuration.frameSemantics.insert(.sceneDepth)
+            }
+            
+            arView.session.run(configuration, options: [.resetTracking, .removeExistingAnchors])
+        }
+        
+        func session(_ session: ARSession, didAdd anchors: [ARAnchor]) {
+            print("Anchors added: \(anchors.count)")
+        }
+        
+        func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
+            // Handle anchor updates if needed
+        }
+        
+        func session(_ session: ARSession, didRemove anchors: [ARAnchor]) {
+            print("Anchors removed: \(anchors.count)")
         }
     }
 } 
