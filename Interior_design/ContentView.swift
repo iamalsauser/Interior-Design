@@ -45,6 +45,18 @@ struct ContentView: View {
                         .shadow(color: .black.opacity(0.3), radius: 5, x: 0, y: 2)
                     }
                     
+                    Button(action: {
+                        viewModel.toggleStats()
+                    }) {
+                        Image(systemName: "chart.bar.fill")
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.white)
+                            .padding(12)
+                            .background(Color.green.opacity(0.8))
+                            .cornerRadius(20)
+                            .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 1)
+                    }
+                    
                     Spacer()
                     
                     Button(action: {
@@ -188,6 +200,87 @@ struct ContentView: View {
                         .shadow(color: .black.opacity(0.3), radius: 3, x: 0, y: 1)
                     }
                     .padding(.bottom, 140)
+                }
+            }
+            
+            if viewModel.showStats {
+                VStack {
+                    Spacer()
+                    
+                    VStack(spacing: 20) {
+                        Text("Placement Statistics")
+                            .font(.title2)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                        
+                        VStack(spacing: 15) {
+                            HStack {
+                                Image(systemName: "cube.fill")
+                                    .foregroundColor(.blue)
+                                Text("Total Items Placed:")
+                                    .foregroundColor(.white)
+                                Spacer()
+                                Text("\(viewModel.totalModelsPlaced)")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.green)
+                            }
+                            
+                            HStack {
+                                Image(systemName: "chair.fill")
+                                    .foregroundColor(.orange)
+                                Text("Chairs:")
+                                    .foregroundColor(.white)
+                                Spacer()
+                                Text("\(viewModel.getModelCount(for: "chair"))")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.green)
+                            }
+                            
+                            HStack {
+                                Image(systemName: "table.furniture.fill")
+                                    .foregroundColor(.brown)
+                                Text("Tables:")
+                                    .foregroundColor(.white)
+                                Spacer()
+                                Text("\(viewModel.getModelCount(for: "table"))")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.green)
+                            }
+                            
+                            HStack {
+                                Image(systemName: "eye.fill")
+                                    .foregroundColor(.purple)
+                                Text("Currently Visible:")
+                                    .foregroundColor(.white)
+                                Spacer()
+                                Text("\(viewModel.placedModels.count)")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(.green)
+                            }
+                        }
+                        .padding(.horizontal, 20)
+                        
+                        Button("Close") {
+                            viewModel.showStats = false
+                        }
+                        .font(.system(size: 16, weight: .medium))
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(Color.gray.opacity(0.3))
+                        .foregroundColor(.white)
+                        .cornerRadius(10)
+                    }
+                    .padding(25)
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.black.opacity(0.85))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 20)
+                                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                            )
+                    )
+                    .padding(.horizontal, 30)
+                    .padding(.bottom, 120)
                 }
             }
         }
