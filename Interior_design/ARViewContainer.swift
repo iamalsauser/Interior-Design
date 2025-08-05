@@ -21,8 +21,15 @@ struct ARViewContainer: UIViewRepresentable {
         
         // Check if running on simulator or if AR is supported
         #if targetEnvironment(simulator)
-        // Running on simulator - don't start AR session
+        // Running on simulator - don't start AR session but set up gestures
         print("Running on iOS Simulator - AR features disabled")
+        
+        let tapGesture = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTap(_:)))
+        arView.addGestureRecognizer(tapGesture)
+        
+        context.coordinator.arView = arView
+        context.coordinator.viewModel = viewModel
+        
         return arView
         #else
         // Running on physical device
@@ -132,8 +139,8 @@ struct ARViewContainer: UIViewRepresentable {
             modelEntity.scale = SIMD3<Float>(scaleFactor, scaleFactor, scaleFactor)
             
             let anchorEntity = AnchorEntity(world: transform)
-                anchorEntity.addChild(modelEntity)
-                arView.scene.addAnchor(anchorEntity)
+            anchorEntity.addChild(modelEntity)
+            arView.scene.addAnchor(anchorEntity)
             
             let position = SIMD3<Float>(transform.columns.3.x, transform.columns.3.y, transform.columns.3.z)
             viewModel.placeModel(at: position, with: anchor)
